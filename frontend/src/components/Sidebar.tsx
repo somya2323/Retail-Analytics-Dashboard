@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 interface SidebarProps {
@@ -5,162 +6,165 @@ interface SidebarProps {
   onToggle: () => void;
 }
 
+const navigationItems = [
+  {
+    label: "Dashboard",
+    icon: (
+      <path d="M3 10.5 12 3l9 7.5V21H3V10.5Z M9 21v-7h6v7" />
+    ),
+  },
+  {
+    label: "Sales Transactions",
+    icon: (
+      <>
+        <path d="M3 3h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.4L22 8H6" />
+        <circle cx="10" cy="20" r="1" />
+        <circle cx="18" cy="20" r="1" />
+      </>
+    ),
+  },
+  {
+    label: "Products",
+    icon: (
+      <>
+        <path d="m12 3 9 5-9 5-9-5 9-5Z" />
+        <path d="m3 8 9 5 9-5M3 8v9l9 5 9-5V8M12 13v9" />
+      </>
+    ),
+  },
+  {
+    label: "Customers",
+    icon: (
+      <>
+        <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="10" cy="7" r="4" />
+        <path d="M20 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+      </>
+    ),
+  },
+  {
+    label: "Reports",
+    icon: (
+      <>
+        <path d="M3 3v18h18" />
+        <path d="m7 14 4-4 4 3 6-7" />
+      </>
+    ),
+  },
+];
+
 export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
-  const [servicesOpen, setServicesOpen] = useState(true);
-  const [invoicesOpen, setInvoicesOpen] = useState(true);
+  const [activeItem, setActiveItem] = useState("Dashboard");
 
   return (
     <>
-      {/* Mobile Overlay - only on small screens */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-30 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/30 z-40 lg:hidden"
           onClick={onToggle}
         />
       )}
 
-      {/* Sidebar */}
-      <div
-        className={`fixed inset-y-0 left-0 z-50 w-60 bg-gray-100 border-r border-gray-200 h-screen overflow-y-auto flex-shrink-0 transform transition-all duration-300 ease-in-out ${
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 h-screen overflow-y-auto flex-shrink-0 transform transition-all duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-      {/* Logo and User Section */}
-      <div className="p-4 border-b border-gray-100">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-bold text-sm">R</span>
-          </div>
-          <div className="flex-1 min-w-0">
-            <h2 className="text-sm font-semibold text-gray-900 truncate">Retail Analytics</h2>
-            <p className="text-xs text-gray-500 truncate">Somya Raj</p>
-          </div>
-          <button onClick={onToggle} className="text-gray-400 hover:text-gray-600 flex-shrink-0">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* Navigation Menu */}
-      <nav className="px-3 py-4">
-        {/* Dashboard */}
-        <button className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors mb-1">
-          <svg className="w-4 h-4 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-          </svg>
-          <span className="truncate">Dashboard</span>
-        </button>
-
-        {/* Nexus */}
-        <button className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors mb-1">
-          <svg className="w-4 h-4 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          <span className="truncate">Nexus</span>
-        </button>
-
-        {/* Intake */}
-        <button className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors mb-1">
-          <svg className="w-4 h-4 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
-          <span className="truncate">Intake</span>
-        </button>
-
-        {/* Services */}
-        <div className="mb-1">
-          <button
-            onClick={() => setServicesOpen(!servicesOpen)}
-            className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <svg className="w-4 h-4 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-            </svg>
-            <span className="flex-1 text-left truncate">Services</span>
-            <svg
-              className={`w-3.5 h-3.5 text-gray-400 transition-transform flex-shrink-0 ${servicesOpen ? "rotate-180" : ""}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-
-          {/* Services Submenu */}
-          {servicesOpen && (
-            <div className="ml-7 mt-1 space-y-0.5">
-              <button className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" strokeWidth={2} />
-                </svg>
-                <span className="truncate">Pre-active</span>
-              </button>
-              <button className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <span className="truncate">Active</span>
-              </button>
-              <button className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" strokeWidth={2} />
-                </svg>
-                <span className="truncate">Blocked</span>
-              </button>
-              <button className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" strokeWidth={2} />
-                </svg>
-                <span className="truncate">Closed</span>
-              </button>
+        {/* Brand */}
+        <div className="px-5 py-5 border-b border-gray-100">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-violet-600 rounded-xl flex items-center justify-center shadow-sm">
+              <span className="text-white font-bold text-lg">R</span>
             </div>
-          )}
-        </div>
 
-        {/* Invoices */}
-        <div>
-          <button
-            onClick={() => setInvoicesOpen(!invoicesOpen)}
-            className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <svg className="w-4 h-4 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            <span className="flex-1 text-left truncate">Invoices</span>
-            <svg
-              className={`w-3.5 h-3.5 text-gray-400 transition-transform flex-shrink-0 ${invoicesOpen ? "rotate-180" : ""}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-
-          {/* Invoices Submenu */}
-          {invoicesOpen && (
-            <div className="ml-7 mt-1 space-y-0.5">
-              <button className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <span className="font-medium truncate">Proforma Invoices</span>
-              </button>
-              <button className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <span className="truncate">Final Invoices</span>
-              </button>
+            <div className="flex-1 min-w-0">
+              <h2 className="text-sm font-bold text-gray-900">
+                Retail Analytics
+              </h2>
+              <p className="text-xs text-gray-500 mt-0.5">
+                Somya Raj
+              </p>
             </div>
-          )}
+
+            <button
+              onClick={onToggle}
+              aria-label="Toggle sidebar"
+              className="text-gray-400 hover:text-gray-700 transition-colors"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.8}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
-      </nav>
-    </div>
+
+        {/* Navigation */}
+        <nav className="px-3 py-6">
+          <p className="px-3 mb-3 text-[10px] font-semibold tracking-[0.16em] text-gray-400 uppercase">
+            Workspace
+          </p>
+
+          <div className="space-y-1">
+            {navigationItems.map((item) => {
+              const isActive = activeItem === item.label;
+
+              return (
+                <button
+                  key={item.label}
+                  onClick={() => setActiveItem(item.label)}
+                  className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                    isActive
+                      ? "bg-indigo-50 text-indigo-700 shadow-sm"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                  }`}
+                >
+                  <svg
+                    className={`w-[18px] h-[18px] flex-shrink-0 ${
+                      isActive ? "text-indigo-600" : "text-gray-400"
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.7}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    {item.icon}
+                  </svg>
+
+                  <span>{item.label}</span>
+
+                  {isActive && (
+                    <span className="ml-auto w-1.5 h-1.5 rounded-full bg-indigo-600" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </nav>
+
+        {/* Footer */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100 bg-white">
+          <div className="rounded-xl bg-gray-50 p-3">
+            <p className="text-xs font-semibold text-gray-700">
+              Retail Analytics
+            </p>
+            <p className="text-[11px] text-gray-500 mt-1">
+              Sales performance overview
+            </p>
+          </div>
+        </div>
+      </aside>
     </>
   );
 }
-
