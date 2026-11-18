@@ -167,3 +167,7 @@ Actively developed. The current implementation includes sales analytics, transac
 - Date-based sales comparisons
 - Enhanced reporting and filtering
 - Improved dashboard experience
+
+## Dashboard Preview
+
+![Retail Analytics Dashboard](docs/dashboard-preview.png)
